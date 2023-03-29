@@ -65,6 +65,26 @@ app.get("/pets_price", function (req, res) {
   );
 });
 
+app.get("/pets_price_chart", function (req, res) {
+  connection.query(
+    `SELECT id, petName, price
+     FROM pet
+     ORDER BY price;`,
+    function (err, results) {
+      const petNames = [];
+      const prices = [];
+      for (let i = 0; i < results.length; i++) {
+        petNames.push(results[i]["petName"]);
+        prices.push(parseFloat(results[i]["price"]));
+      }
+      res.json({
+        petNames,
+        prices,
+      });
+    }
+  );
+});
+
 app.listen(5000, () => {
   console.log("Server is started.");
 });
