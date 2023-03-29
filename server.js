@@ -54,6 +54,17 @@ app.post("/users", function (req, res) {
   );
 });
 
+app.get("/pets_price", function (req, res) {
+  connection.query(
+    `SELECT id, petName, price
+     FROM pet
+     ORDER BY price;`,
+    function (err, results) {
+      res.json(results);
+    }
+  );
+});
+
 app.listen(5000, () => {
   console.log("Server is started.");
 });
